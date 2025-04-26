@@ -2,6 +2,7 @@ import { View, Text, ScrollView, Image, TouchableOpacity } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 import React from 'react';
 import { LinearGradient } from 'expo-linear-gradient';
+import TaskListIcon from "@/assets/icons/task-list.svg";
 
 export default function Home() {
   return (
@@ -23,7 +24,7 @@ export default function Home() {
           <View className="flex-row justify-between items-center mb-2">
             <Text className="text-gray-800 text-lg">
               <Text className="font-bold">Coin: </Text>
-              <Text className="text-blue-600 font-bold">225.80</Text>
+              <Text className="text-yellow-700 font-bold">225.80</Text>
             </Text>
             <Text className="text-lg">
               <Text className="text-blue-600 font-bold">0</Text>
@@ -49,7 +50,7 @@ export default function Home() {
             {/* Icon Box + Badge */}
             <View className="relative">
               <LinearGradient
-                colors={['#f0f5ff', '#e0ecff']} // ฟ้าอ่อนมาก ๆ
+                colors={['#f0f5ff', '#e0ecff']}
                 start={{ x: 0, y: 0 }}
                 end={{ x: 0, y: 1 }}
                 style={{
@@ -62,7 +63,7 @@ export default function Home() {
                   justifyContent: 'center',
                 }}
               >
-                <Ionicons name="clipboard-outline" size={28} color="#3B82F6" />
+                <TaskListIcon width="70%" height="70%" preserveAspectRatio="xMidYMid meet" />
               </LinearGradient>
 
               <View className="absolute -top-2 -left-2 bg-white rounded-full border-1 border-blue-300 w-6 h-6 flex items-center justify-center shadow-xl">
@@ -82,7 +83,7 @@ export default function Home() {
             <Ionicons name="arrow-forward" size={16} color="#4B5563" />
           </View>
         </TouchableOpacity>
-
+        
         {/* Coin */}
         <TouchableOpacity className="bg-[#fcf9e3] p-4 rounded-xl mb-3 flex-row justify-between items-center">
           <View className="flex-row items-center gap-4">
