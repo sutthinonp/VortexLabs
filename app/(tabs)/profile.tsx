@@ -4,99 +4,127 @@ import {
     ScrollView,
     Image,
     TouchableOpacity,
-    ImageSourcePropType,
+    Modal,
 } from 'react-native';
-import React from 'react';
+import React, { useState } from 'react';
 import { SafeAreaView } from 'react-native-safe-area-context';
+import { useRouter } from 'expo-router';
+import * as SecureStore from 'expo-secure-store';
 import icons from '@/constants/icons';
 import images from '@/constants/images';
-import { settings } from '@/constants/data';
-import * as SecureStore from 'expo-secure-store';
-import { useRouter } from 'expo-router';
-
-interface SettingsItemProps {
-    icon: ImageSourcePropType;
-    title: string;
-    onPress?: () => void;
-    textStyle?: string;
-    showArrow?: boolean;
-}
-
-const SettingsItem = ({
-    icon,
-    title,
-    onPress = () => { },
-    textStyle = '',
-    showArrow = true,
-}: SettingsItemProps) => (
-    <TouchableOpacity
-        onPress={onPress}
-        className="flex flex-row items-center justify-between py-3"
-    >
-        <View className="flex flex-row items-center gap-3">
-            <Image source={icon} className="size-6" />
-            <Text className={`text-lg font-rubik-medium text-black-300 ${textStyle}`}>
-                {title}
-            </Text>
-        </View>
-        {showArrow && <Image source={icons.rightArrow} className="size-5" />}
-    </TouchableOpacity>
-);
 
 const Profile = () => {
     const router = useRouter();
+    const [showLogoutModal, setShowLogoutModal] = useState(false);
 
-    const handleLogout = async () => {
+    const handleConfirmLogout = async () => {
+        setShowLogoutModal(false);
         await SecureStore.deleteItemAsync('authToken');
         router.replace('/sign-in');
     };
 
     return (
-        <SafeAreaView className="h-full bg-white">
-            <ScrollView
-                showsVerticalScrollIndicator={false}
-                contentContainerClassName="pb-32 px-7"
-            >
-                <View className="flex flex-row items-center justify-between">
-                    <Text className="text-xl font-rubik-bold">Profile</Text>
-                    <Image source={icons.bell} className="size-5" />
-                </View>
-                <View className="flex flex-row justify-center mt-5">
-                    <View className="flex flex-col items-center relative mt-5">
-                        <Image
-                            source={images.avatar}
-                            className="size-44 relative rounded-full"
-                        />
-                        <TouchableOpacity className="absolute bottom-11 right-2">
-                            <Image source={icons.edit} className="size-9" />
+        <SafeAreaView className="h-full bg-gray-100">
+            <ScrollView contentContainerClassName="pb-20 px-3">
+                <View className="bg-white rounded-2xl p-5 mt-5 shadow-none">
+                    <View className="flex-row justify-between items-center">
+                        <View className="flex-row items-center">
+                            <Image source={images.avatar} className="w-16 h-16 rounded-full" />
+                            <View className="ml-3">
+                                <Text className="text-lg font-bold">Namphuu DEV</Text>
+                                <Text className="text-gray-400">Programmer</Text>
+                            </View>
+                        </View>
+                        <TouchableOpacity className="bg-gray-100 px-3 py-1 rounded-lg">
+                            <Text className="text-primary-500 font-medium">Edit Profile</Text>
                         </TouchableOpacity>
-                        <Text className="text-2xl font-rubik-bold mt-2">
-                            Namphuu | DEV
-                        </Text>
                     </View>
                 </View>
-
-                <View className="flex flex-col mt-10">
-                    <SettingsItem icon={icons.calendar} title="My Bookings" />
-                    <SettingsItem icon={icons.wallet} title="Payments" />
+                <View className="bg-white rounded-2xl p-5 mt-5 shadow-none">
+                    <View className="flex-row justify-between items-center mb-4">
+                        <Text className="font-bold text-lg">Statistics</Text>
+                        <TouchableOpacity>
+                            <Text className="text-primary-500">More Details</Text>
+                        </TouchableOpacity>
+                    </View>
+                    <View className="flex-row justify-between">
+                        <View className="items-center">
+                            <Text className="font-bold text-xl">125</Text>
+                            <Text className="text-gray-400 text-sm">Total Shipping</Text>
+                        </View>
+                        <View className="items-center">
+                            <Text className="font-bold text-xl">5 ⭐</Text>
+                            <Text className="text-gray-400 text-sm">Rating</Text>
+                        </View>
+                        <View className="items-center">
+                            <Text className="font-bold text-xl">1500</Text>
+                            <Text className="text-gray-400 text-sm">Point</Text>
+                        </View>
+                        <View className="items-center">
+                            <Text className="font-bold text-xl">25</Text>
+                            <Text className="text-gray-400 text-sm">Review</Text>
+                        </View>
+                    </View>
                 </View>
-
-                <View className="flex flex-col mt-5 border-t pt-5 border-primary-200">
-                    {settings.slice(2).map((item, index) => (
-                        <SettingsItem key={index} {...item} />
+                <View className="bg-white rounded-2xl p-5 mt-5 shadow-none">
+                    {[
+                        { title: 'Privacy & Security', icon: icons.shield },
+                        { title: 'Notification Preference', icon: icons.bell },
+                        { title: 'Payment Method', icon: icons.wallet },
+                        { title: 'Language', icon: icons.language },
+                    ].map((item, index) => (
+                        <TouchableOpacity
+                            key={index}
+                            className="flex-row justify-between items-center py-4 border-b border-gray-200"
+                        >
+                            <View className="flex-row items-center">
+                                <Image source={item.icon} className="w-6 h-6 mr-4" />
+                                <Text className="text-base">{item.title}</Text>
+                            </View>
+                            <Image source={icons.rightArrow} className="w-4 h-4" />
+                        </TouchableOpacity>
                     ))}
                 </View>
-
-                <View className="flex flex-col mt-5 border-t pt-5 border-primary-200">
-                    <SettingsItem
-                        icon={icons.logout}
-                        title="Logout"
-                        textStyle="text-danger"
-                        showArrow={false}
-                        onPress={handleLogout}
-                    />
+                <View className="bg-white rounded-2xl p-5 mt-5 shadow-none">
+                    <TouchableOpacity
+                        onPress={() => setShowLogoutModal(true)}
+                        className="flex-row justify-between items-center"
+                    >
+                        <View className="flex-row items-center">
+                            <Image source={icons.logout} className="w-6 h-6 mr-4" />
+                            <Text className="text-base text-danger">Logout</Text>
+                        </View>
+                    </TouchableOpacity>
                 </View>
             </ScrollView>
+
+            <Modal
+                visible={showLogoutModal}
+                transparent
+                animationType="fade"
+                onRequestClose={() => setShowLogoutModal(false)}
+            >
+                <View className="flex-1 justify-center items-center bg-black/40 px-6">
+                    <View className="bg-white p-4 rounded-2xl w-full">
+                        <Text className="text-lg font-bold text-center mb-4">ยืนยันออกจากระบบ?</Text>
+                        <View className="flex-row justify-between mt-4">
+                            <TouchableOpacity
+                                className="flex-1 mr-2 py-3 rounded-2xl bg-gray-200"
+                                onPress={() => setShowLogoutModal(false)}
+                            >
+                                <Text className="text-center font-semibold">ยกเลิก</Text>
+                            </TouchableOpacity>
+                            <TouchableOpacity
+                                className="flex-1 ml-2 py-3 rounded-2xl bg-red-500"
+                                onPress={handleConfirmLogout}
+                            >
+                                <Text className="text-center text-white font-semibold">ออกจากระบบ</Text>
+                            </TouchableOpacity>
+                        </View>
+                    </View>
+                </View>
+            </Modal>
+
         </SafeAreaView>
     );
 };

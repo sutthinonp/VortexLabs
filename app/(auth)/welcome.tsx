@@ -2,7 +2,7 @@
 import { View, Text, Image, TouchableOpacity } from 'react-native';
 import React from 'react';
 import { useRouter } from 'expo-router';
-import images from '@/constants/images'; // ใส่รูป illus ที่เหมาะสม
+import images from '@/constants/images';
 
 export default function Welcome() {
     const router = useRouter();
@@ -22,7 +22,7 @@ export default function Welcome() {
                 Find your daily necessities at Brand. The world’s largest fashion e-commerce has arrived in a mobile app—shop now!
             </Text>
 
-            {/* ปุ่ม Login */}
+
             <TouchableOpacity
                 onPress={() => router.push('/sign-in?from=welcome')}
                 className="bg-purple-500 rounded-full py-4 mb-4"
@@ -32,7 +32,6 @@ export default function Welcome() {
                 </Text>
             </TouchableOpacity>
 
-            {/* ปุ่ม Register */}
             <TouchableOpacity
                 onPress={() => router.push('/sign-in')}
                 className="border border-purple-500 rounded-full py-4"

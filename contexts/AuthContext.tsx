@@ -12,16 +12,16 @@ interface AuthContextType {
 const AuthContext = createContext<AuthContextType | null>(null);
 
 export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
-  const [isAuthenticated, setIsAuthenticated] = useState<boolean | null>(null); // << แก้ตรงนี้
+  const [isAuthenticated, setIsAuthenticated] = useState<boolean | null>(null);
   const router = useRouter();
 
   useEffect(() => {
     (async () => {
       try {
         const token = await SecureStore.getItemAsync('authToken');
-        setIsAuthenticated(!!token);  // ถ้ามี token ก็ true ไม่มีคือ false
+        setIsAuthenticated(!!token);
       } catch (error) {
-        setIsAuthenticated(false); // ถ้า error ถือว่า logout
+        setIsAuthenticated(false);
       }
     })();
   }, []);
@@ -30,12 +30,12 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
     const { token } = await signInService(email, password);
     await SecureStore.setItemAsync('authToken', token);
     setIsAuthenticated(true);
-    router.replace('/(tabs)/index'); // login เสร็จเด้งเข้า tab
+    router.replace('/(tabs)/index');
   };
 
   const logout = async () => {
     await signOutService();
-    await SecureStore.deleteItemAsync('authToken'); // << ล้าง token ด้วย (ปลอดภัย)
+    await SecureStore.deleteItemAsync('authToken');
     setIsAuthenticated(false);
     router.replace('/welcome');
   };

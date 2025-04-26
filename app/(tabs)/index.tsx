@@ -1,6 +1,7 @@
 import { View, Text, ScrollView, Image, TouchableOpacity } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 import React from 'react';
+import { LinearGradient } from 'expo-linear-gradient';
 
 export default function Home() {
   return (
@@ -42,46 +43,156 @@ export default function Home() {
       <ScrollView className="p-5 mt-20">
         <Text className="text-lg font-bold text-gray-800 mb-4">1 Program</Text>
 
-        <TouchableOpacity className="bg-blue-100 p-4 rounded-xl mb-3 flex-row justify-between items-center">
-          <View>
-            <Text className="text-blue-800 font-bold text-base">Task</Text>
-            <Text className="text-gray-600 text-sm">Manage your task and clear them</Text>
+        {/* Task */}
+        <TouchableOpacity className="bg-[#e7effe] p-4 rounded-xl mb-3 flex-row justify-between items-center">
+          <View className="flex-row items-center gap-4">
+            {/* Icon Box + Badge */}
+            <View className="relative">
+              <LinearGradient
+                colors={['#f0f5ff', '#e0ecff']} // ฟ้าอ่อนมาก ๆ
+                start={{ x: 0, y: 0 }}
+                end={{ x: 0, y: 1 }}
+                style={{
+                  width: 64,
+                  height: 64,
+                  borderRadius: 16,
+                  borderWidth: 2,
+                  borderColor: '#93c5fd',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                }}
+              >
+                <Ionicons name="clipboard-outline" size={28} color="#3B82F6" />
+              </LinearGradient>
+
+              <View className="absolute -top-2 -left-2 bg-white rounded-full border-1 border-blue-300 w-6 h-6 flex items-center justify-center shadow-xl">
+                <Text className="text-xs font-semibold text-blue-500">10</Text>
+              </View>
+            </View>
+
+            {/* Texts */}
+            <View>
+              <Text className="text-black font-semibold text-base">Task</Text>
+              <Text className="text-gray-500 text-sm">Manage your task and clear them</Text>
+            </View>
           </View>
+
+          {/* Arrow */}
           <View className="w-12 h-12 rounded-full border border-blue-500 bg-white flex items-center justify-center">
             <Ionicons name="arrow-forward" size={16} color="#4B5563" />
           </View>
         </TouchableOpacity>
 
-        <TouchableOpacity className="bg-yellow-100 p-4 rounded-xl mb-3 flex-row justify-between items-center">
-          <View>
-            <Text className="text-yellow-700 font-bold text-base">Coin: 225.80</Text>
-            <Text className="text-gray-600 text-sm">Anakin!! I am your father</Text>
+        {/* Coin */}
+        <TouchableOpacity className="bg-[#fcf9e3] p-4 rounded-xl mb-3 flex-row justify-between items-center">
+          <View className="flex-row items-center gap-4">
+            <View className="relative">
+              <LinearGradient
+                colors={['#fefce8', '#fef9c3']} // เหลืองนุ่ม ๆ
+                start={{ x: 0, y: 0 }}
+                end={{ x: 0, y: 1 }}
+                style={{
+                  width: 64,
+                  height: 64,
+                  borderRadius: 16,
+                  borderWidth: 2,
+                  borderColor: '#facc15',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                }}
+              >
+                <Ionicons name="wallet-outline" size={28} color="#F59E0B" />
+              </LinearGradient>
+            </View>
+
+            <View>
+              <Text className="text-black font-semibold text-base">
+                Coin: <Text className="text-yellow-700 font-semibold text-base">255.80</Text>
+              </Text>
+              <Text className="text-gray-500 text-sm">Anakin!! I am your father</Text>
+            </View>
           </View>
+
           <View className="w-12 h-12 rounded-full border border-yellow-500 bg-white flex items-center justify-center">
             <Ionicons name="arrow-forward" size={16} color="#4B5563" />
           </View>
         </TouchableOpacity>
 
-        <TouchableOpacity className="bg-green-100 p-4 rounded-xl mb-3 flex-row justify-between items-center">
-          <View>
-            <Text className="text-green-700 font-bold text-base">Quest</Text>
-            <Text className="text-gray-600 text-sm">Hurry up! You have quests to do.</Text>
+        {/* Quest */}
+        <TouchableOpacity className="bg-[#ddf7d9] p-4 rounded-xl mb-3 flex-row justify-between items-center">
+          <View className="flex-row items-center gap-4">
+            <View className="relative">
+              <LinearGradient
+                colors={['#e0fbe2', '#c6f6d5']} // เขียวนวล ๆ
+                start={{ x: 0, y: 0 }}
+                end={{ x: 0, y: 1 }}
+                style={{
+                  width: 64,
+                  height: 64,
+                  borderRadius: 16,
+                  borderWidth: 2,
+                  borderColor: '#4ade80',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                }}
+              >
+                <Ionicons name="rocket-outline" size={28} color="#10B981" />
+              </LinearGradient>
+
+              <View className="absolute -top-2 -left-2 bg-white rounded-full border-1 border-green-300 w-6 h-6 flex items-center justify-center shadow-xl">
+                <Text className="text-sm font-semibold text-green-500">3</Text>
+              </View>
+            </View>
+
+            <View>
+              <Text className="text-green-700 font-bold text-base">Quest</Text>
+              <Text className="text-gray-500 text-sm">Hurry up! You have quests to do.</Text>
+            </View>
           </View>
+
           <View className="w-12 h-12 rounded-full border border-green-500 bg-white flex items-center justify-center">
             <Ionicons name="arrow-forward" size={16} color="#4B5563" />
           </View>
         </TouchableOpacity>
 
-        <TouchableOpacity className="bg-red-100 p-4 rounded-xl mb-10 flex-row justify-between items-center">
-          <View>
-            <Text className="text-red-700 font-bold text-base">Questionnaire</Text>
-            <Text className="text-gray-600 text-sm">Hello, I am wondering...</Text>
+        {/* Questionnaire */}
+        <TouchableOpacity className="bg-[#f9e4e2] p-4 rounded-xl mb-10 flex-row justify-between items-center">
+          <View className="flex-row items-center gap-4">
+            <View className="relative">
+              <LinearGradient
+                colors={['#fde8e8', '#fcd5ce']} // ชมพูนวล ๆ
+                start={{ x: 0, y: 0 }}
+                end={{ x: 0, y: 1 }}
+                style={{
+                  width: 64,
+                  height: 64,
+                  borderRadius: 16,
+                  borderWidth: 2,
+                  borderColor: '#f87171',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                }}
+              >
+                <Ionicons name="chatbubble-ellipses-outline" size={28} color="#EF4444" />
+              </LinearGradient>
+
+              <View className="absolute -top-2 -left-2 bg-white rounded-full border-1 border-red-300 w-6 h-6 flex items-center justify-center shadow-xl">
+                <Text className="text-xs font-semibold text-red-500">1</Text>
+              </View>
+            </View>
+
+            <View>
+              <Text className="text-red-700 font-bold text-base">Questionnaire</Text>
+              <Text className="text-gray-500 text-sm">Hello, I am wondering...</Text>
+            </View>
           </View>
+
           <View className="w-12 h-12 rounded-full border border-red-500 bg-white flex items-center justify-center">
             <Ionicons name="arrow-forward" size={16} color="#4B5563" />
           </View>
         </TouchableOpacity>
       </ScrollView>
+
     </View>
   );
 }
