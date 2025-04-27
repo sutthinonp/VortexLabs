@@ -2,7 +2,10 @@ import { View, Text, ScrollView, Image, TouchableOpacity } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 import React from 'react';
 import { LinearGradient } from 'expo-linear-gradient';
-import TaskListIcon from "@/assets/icons/task-list.svg";
+import TaskListIcon from "@/assets/icons/ListTodo.svg";
+import TreasureIcon from "@/assets/icons/treasure.svg";
+import SpaceShipIcon from "@/assets/icons/SpaceShip.svg";
+import QuestionListIcon from "@/assets/icons/question-list.svg";
 
 export default function Home() {
   return (
@@ -15,12 +18,12 @@ export default function Home() {
             resizeMode="cover"
           />
           <View className="flex-1 px-5 pt-2 pb-20 justify-end">
-            <Text className="text-white text-xl font-bold">Hello...</Text>
-            <Text className="text-white text-lg">Lorem ipsum!</Text>
-            <Text className="text-white text-sm mt-1">Wolves corporation</Text>
+            <Text className="text-white text-xl font-bold">Welcome back!</Text>
+            <Text className="text-white text-lg">Take a breath. You're doing great.</Text>
+            <Text className="text-white text-sm mt-1">Vortex Labs.</Text>
           </View>
         </View>
-        <View className="absolute left-5 right-5 top-52 bg-yellow-100 p-4 shadow-none rounded-2xl z-20">
+        <View className="absolute left-5 right-5 top-52 bg-[#fcf9e3] p-4 shadow-none rounded-2xl z-20">
           <View className="flex-row justify-between items-center mb-2">
             <Text className="text-gray-800 text-lg">
               <Text className="font-bold">Coin: </Text>
@@ -63,9 +66,17 @@ export default function Home() {
                   justifyContent: 'center',
                 }}
               >
-                <TaskListIcon width="70%" height="70%" preserveAspectRatio="xMidYMid meet" />
+                <View
+                  style={{
+                    width: 44,
+                    height: 44,
+                    justifyContent: 'center',
+                    alignItems: 'center',
+                  }}
+                >
+                  <TaskListIcon width="100%" height="100%" preserveAspectRatio="xMidYMid slice" />
+                </View>
               </LinearGradient>
-
               <View className="absolute -top-2 -left-2 bg-white rounded-full border-1 border-blue-300 w-6 h-6 flex items-center justify-center shadow-xl">
                 <Text className="text-xs font-semibold text-blue-500">10</Text>
               </View>
@@ -83,13 +94,13 @@ export default function Home() {
             <Ionicons name="arrow-forward" size={16} color="#4B5563" />
           </View>
         </TouchableOpacity>
-        
+
         {/* Coin */}
         <TouchableOpacity className="bg-[#fcf9e3] p-4 rounded-xl mb-3 flex-row justify-between items-center">
           <View className="flex-row items-center gap-4">
             <View className="relative">
               <LinearGradient
-                colors={['#fefce8', '#fef9c3']} // เหลืองนุ่ม ๆ
+                colors={['#fefce8', '#fef9c3']}
                 start={{ x: 0, y: 0 }}
                 end={{ x: 0, y: 1 }}
                 style={{
@@ -102,7 +113,16 @@ export default function Home() {
                   justifyContent: 'center',
                 }}
               >
-                <Ionicons name="wallet-outline" size={28} color="#F59E0B" />
+                <View
+                  style={{
+                    width: 44,
+                    height: 44,
+                    justifyContent: 'center',
+                    alignItems: 'center',
+                  }}
+                >
+                  <TreasureIcon width="100%" height="100%" preserveAspectRatio="xMidYMid slice" />
+                </View>
               </LinearGradient>
             </View>
 
@@ -124,7 +144,7 @@ export default function Home() {
           <View className="flex-row items-center gap-4">
             <View className="relative">
               <LinearGradient
-                colors={['#e0fbe2', '#c6f6d5']} // เขียวนวล ๆ
+                colors={['#e0fbe2', '#c6f6d5']}
                 start={{ x: 0, y: 0 }}
                 end={{ x: 0, y: 1 }}
                 style={{
@@ -137,7 +157,16 @@ export default function Home() {
                   justifyContent: 'center',
                 }}
               >
-                <Ionicons name="rocket-outline" size={28} color="#10B981" />
+                <View
+                  style={{
+                    width: 44,
+                    height: 44,
+                    justifyContent: 'center',
+                    alignItems: 'center',
+                  }}
+                >
+                  <SpaceShipIcon width="100%" height="100%" preserveAspectRatio="xMidYMid slice" />
+                </View>
               </LinearGradient>
 
               <View className="absolute -top-2 -left-2 bg-white rounded-full border-1 border-green-300 w-6 h-6 flex items-center justify-center shadow-xl">
@@ -174,7 +203,16 @@ export default function Home() {
                   justifyContent: 'center',
                 }}
               >
-                <Ionicons name="chatbubble-ellipses-outline" size={28} color="#EF4444" />
+                <View
+                  style={{
+                    width: 44,
+                    height: 44,
+                    justifyContent: 'center',
+                    alignItems: 'center',
+                  }}
+                >
+                  <QuestionListIcon width="100%" height="100%" preserveAspectRatio="xMidYMid slice" />
+                </View>
               </LinearGradient>
 
               <View className="absolute -top-2 -left-2 bg-white rounded-full border-1 border-red-300 w-6 h-6 flex items-center justify-center shadow-xl">
