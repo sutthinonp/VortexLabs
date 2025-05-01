@@ -1,50 +1,27 @@
-# Welcome to your Expo app 👋
+# 🚀 Wloves (built with Expo + TypeScript)
 
-This is an [Expo](https://expo.dev) project created with [`create-expo-app`](https://www.npmjs.com/package/create-expo-app).
+Welcome to the **Coin Transfer App** – a smooth, responsive mobile application built using [Expo Router](https://expo.dev/router), [React Native](https://reactnative.dev/), and [Tailwind CSS (NativeWind)](https://www.nativewind.dev/).
 
-## Get started
+This app lets users:
+- View recent transfer targets
+- Select predefined coin amounts or enter custom ones
+- Send coins with beautiful animations and swipe-back navigation
 
-1. Install dependencies
+---
 
-   ```bash
-   npm install
-   ```
+## ✨ Features
 
-2. Start the app
+- ✅ Modern UI with Tailwind + SVG icons
+- ✅ Swipe-back gesture navigation (iOS style)
+- ✅ Custom stack-based routing with `expo-router`
+- ✅ Keyboard-aware, smooth scrolling input
+- ✅ Designed for both iOS and Android
 
-   ```bash
-    npx expo start
-   ```
+---
 
-In the output, you'll find options to open the app in a
+## 🛠 Getting Started
 
-- [development build](https://docs.expo.dev/develop/development-builds/introduction/)
-- [Android emulator](https://docs.expo.dev/workflow/android-studio-emulator/)
-- [iOS simulator](https://docs.expo.dev/workflow/ios-simulator/)
-- [Expo Go](https://expo.dev/go), a limited sandbox for trying out app development with Expo
-
-You can start developing by editing the files inside the **app** directory. This project uses [file-based routing](https://docs.expo.dev/router/introduction).
-
-## Get a fresh project
-
-When you're ready, run:
+### 1. Install dependencies
 
 ```bash
-npm run reset-project
-```
-
-This command will move the starter code to the **app-example** directory and create a blank **app** directory where you can start developing.
-
-## Learn more
-
-To learn more about developing your project with Expo, look at the following resources:
-
-- [Expo documentation](https://docs.expo.dev/): Learn fundamentals, or go into advanced topics with our [guides](https://docs.expo.dev/guides).
-- [Learn Expo tutorial](https://docs.expo.dev/tutorial/introduction/): Follow a step-by-step tutorial where you'll create a project that runs on Android, iOS, and the web.
-
-## Join the community
-
-Join our community of developers creating universal apps.
-
-- [Expo on GitHub](https://github.com/expo/expo): View our open source platform and contribute.
-- [Discord community](https://chat.expo.dev): Chat with Expo users and ask questions.
+npm install
