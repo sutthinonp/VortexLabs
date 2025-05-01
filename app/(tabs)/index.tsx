@@ -126,7 +126,7 @@ export default function Home() {
               Coin amount that can{''}be transferred today
             </Text>
             <TouchableOpacity className="bg-yellow-400 px-12 py-2.5 rounded-full"
-              onPress={() => router.push('/(tabs)/transfer')}>
+              onPress={() => router.push('/(pages)/transfer')}>
               <Text className="text-white font-rubik-bold text-md">Transfer</Text>
             </TouchableOpacity>
           </View>
