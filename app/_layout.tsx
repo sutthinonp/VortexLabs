@@ -1,5 +1,5 @@
 // app/_layout.tsx
-import { Slot } from 'expo-router';
+import { Stack } from 'expo-router';
 import { useFonts } from 'expo-font';
 import { useEffect } from 'react';
 import { AuthProvider, useAuth } from '@/contexts/AuthContext';
@@ -20,7 +20,13 @@ function RootNavigator() {
     );
   }
 
-  return <Slot />;
+  return <Stack
+    screenOptions={{
+      headerShown: false,       // ✅ ซ่อน Header ของ Stack
+      gestureEnabled: true,     // ✅ เปิด Swipe Back
+      animation: 'slide_from_right', // ✅ ให้ความรู้สึกเหมือน push ธรรมดา
+    }}
+  />;
 }
 
 export default function RootLayout() {

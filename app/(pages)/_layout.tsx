@@ -4,8 +4,9 @@ export default function Layout() {
   return (
     <Stack
       screenOptions={{
-        headerShown: false,
-        gestureEnabled: true,
+        headerShown: false,       // ✅ ซ่อน Header ของ Stack
+        gestureEnabled: true,     // ✅ เปิด Swipe Back
+        animation: 'slide_from_right', // ✅ ให้ความรู้สึกเหมือน push ธรรมดา
       }}
     />
   );
