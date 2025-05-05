@@ -1,11 +1,10 @@
 // app/_layout.tsx
-import { Stack } from 'expo-router';
-import { useFonts } from 'expo-font';
-import { useEffect } from 'react';
 import { AuthProvider, useAuth } from '@/contexts/AuthContext';
+import { useFonts } from 'expo-font';
+import { SplashScreen, Stack } from 'expo-router';
+import { useEffect } from 'react';
 import { ActivityIndicator, View } from 'react-native';
 import './global.css';
-import { SplashScreen } from 'expo-router';
 
 SplashScreen.preventAutoHideAsync();
 
@@ -22,9 +21,9 @@ function RootNavigator() {
 
   return <Stack
     screenOptions={{
-      headerShown: false,       // ✅ ซ่อน Header ของ Stack
-      gestureEnabled: true,     // ✅ เปิด Swipe Back
-      animation: 'slide_from_right', // ✅ ให้ความรู้สึกเหมือน push ธรรมดา
+      headerShown: false,
+      gestureEnabled: true,
+      animation: 'slide_from_right',
     }}
   />;
 }

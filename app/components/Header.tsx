@@ -1,14 +1,16 @@
-import { View, Text, TouchableOpacity, Image } from 'react-native';
-import { useSafeAreaInsets } from 'react-native-safe-area-context';
-import { useRouter } from 'expo-router';
 import icons from '@/constants/icons';
+import { useRouter } from 'expo-router';
 import React from 'react';
+import { Image, Text, TouchableOpacity, View } from 'react-native';
+import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
 type HeaderBlockProps = {
     title: string;
+    showConfirm?: boolean;
+    onConfirm?: () => void;
 };
 
-export default function HeaderBlock({ title }: HeaderBlockProps) {
+export default function HeaderBlock({ title, showConfirm, onConfirm }: HeaderBlockProps) {
     const insets = useSafeAreaInsets();
     const router = useRouter();
 
@@ -21,38 +23,52 @@ export default function HeaderBlock({ title }: HeaderBlockProps) {
     };
 
     return (
-        <View style={{ paddingBottom: 12 }}>
+        <View>
             <View
                 style={{
-                    flexDirection: 'row',
-                    alignItems: 'center',
                     justifyContent: 'center',
+                    alignItems: 'center',
                     position: 'relative',
+                    marginBottom: 16,
                 }}
             >
                 <TouchableOpacity
                     onPress={handleBack}
                     style={{
                         position: 'absolute',
-                        left: insets.left,
+                        left: 0,
                         width: 40,
-                        height: 30,
-                        borderRadius: 20,
+                        height: 40,
                         justifyContent: 'center',
                         alignItems: 'center',
-                        marginBottom: 20,
-                        shadowOffset: { width: 0, height: 1 },
-                        shadowOpacity: 0.1,
-                        shadowRadius: 2,
-                        elevation: 2,
                     }}
                 >
                     <Image source={icons.backArrow} style={{ width: 20, height: 20 }} resizeMode="contain" />
                 </TouchableOpacity>
+                <Text
+                    className='text-xl font-rubik-bold text-black'
+                    style={{
+                        alignSelf: 'center',
+                    }}
+                >
+                    {title}
+                </Text>
 
-                <Text style={{ fontSize: 20, fontWeight: 'bold', marginTop: 8 }}>{title}</Text>
+                {showConfirm && (
+                    <TouchableOpacity
+                        onPress={onConfirm}
+                        style={{
+                            position: 'absolute',
+                            right: 16,
+                            height: 40,
+                            justifyContent: 'center',
+                            alignItems: 'flex-end',
+                        }}
+                    >
+                        <Text className='text-blue-500 font-rubik-semibold'>Confirm</Text>
+                    </TouchableOpacity>
+                )}
             </View>
         </View>
     );
 }
-

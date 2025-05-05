@@ -1,13 +1,20 @@
-import { View, Text, ScrollView, Image, TouchableOpacity } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 import { LinearGradient } from 'expo-linear-gradient';
-import React from 'react';
 import { useRouter } from 'expo-router';
+import React, { useCallback, useState } from 'react';
+import {
+  Image,
+  RefreshControl,
+  ScrollView,
+  Text,
+  TouchableOpacity,
+  View,
+} from 'react-native';
 
 import TaskListIcon from '@/assets/icons/ListTodo.svg';
-import TreasureIcon from '@/assets/icons/treasure.svg';
 import SpaceShipIcon from '@/assets/icons/SpaceShip.svg';
 import QuestionListIcon from '@/assets/icons/question-list.svg';
+import TreasureIcon from '@/assets/icons/treasure.svg';
 
 type ProgramItem = {
   title: string;
@@ -74,8 +81,17 @@ const programs: ProgramItem[] = [
 ];
 
 export default function Home() {
-
   const router = useRouter();
+  const [refreshing, setRefreshing] = useState(false);
+
+  const onRefresh = useCallback(() => {
+    setRefreshing(true);
+    // 🔁 TODO: ใส่ฟังก์ชัน fetch ข้อมูลใหม่ตรงนี้
+    setTimeout(() => {
+      setRefreshing(false);
+    }, 1500);
+  }, []);
+
   const handlePress = (index: number) => {
     switch (index) {
       case 0:
@@ -105,35 +121,51 @@ export default function Home() {
             resizeMode="cover"
           />
           <View className="flex-1 px-5 pt-2 pb-20 justify-end">
-            <Text className="text-white text-xl font-bold">Welcome back!</Text>
-            <Text className="text-white text-lg">Take a breath. You're doing great.</Text>
-            <Text className="text-white text-sm mt-1">Vortex Labs.</Text>
+            <Text className="text-white text-xl font-rubik-bold">Welcome back!</Text>
+            <Text className="text-white text-lg font-rubik-regular">Take a breath. You're doing great.</Text>
+            <Text className="text-white text-sm mt-1 font-rubik-regular">Vortex Labs.</Text>
           </View>
         </View>
         <View className="absolute left-5 right-5 top-52 bg-[#fcf9e3] p-4 shadow-none rounded-2xl z-20">
           <View className="flex-row justify-between items-center mb-2">
             <Text className="text-gray-800 text-lg">
-              <Text className="font-bold">Coin: </Text>
-              <Text className="text-yellow-700 font-bold">225.80</Text>
+              <Text className="font-rubik-bold">Coin: </Text>
+              <Text className="text-blue-600 font-rubik-bold">225.80</Text>
             </Text>
             <Text className="text-lg">
-              <Text className="text-blue-600 font-bold">0</Text>
-              <Text className="text-black font-bold"> / 40</Text>
+              <Text className="text-blue-600 font-rubik-bold">0</Text>
+              <Text className="text-black font-rubik-bold"> / 40</Text>
             </Text>
           </View>
           <View className="flex-row justify-between items-center">
-            <Text className="text-gray-500 text-md flex-1 pr-3">
-              Coin amount that can{''}be transferred today
+            <Text className="text-gray-500 text-md flex-1 pr-3 font-rubik-regular">
+              Coin amount that can{' '}be transferred today
             </Text>
-            <TouchableOpacity className="bg-yellow-400 px-12 py-2.5 rounded-full"
-              onPress={() => router.push('/(pages)/transfer')}>
+            <TouchableOpacity
+              className="bg-yellow-400 px-12 py-2.5 rounded-full"
+              onPress={() => router.push('/(pages)/transfer')}
+            >
               <Text className="text-white font-rubik-bold text-md">Transfer</Text>
             </TouchableOpacity>
           </View>
         </View>
       </View>
-      <ScrollView className="p-5 mt-20">
-        <Text className="text-lg font-bold text-gray-800 mb-4">{programs.length} Programs</Text>
+
+      <ScrollView
+        className="p-5 mt-16"
+        refreshControl={
+          <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
+        }
+      >
+        <Text className="text-lg font-rubik-semibold mb-4">
+          <Text className='text-blue-600'>
+            {programs.length}{' '}
+          </Text>
+          <Text className='text-gray-800'>
+            Programs
+          </Text>
+        </Text>
+
 
         {programs.map((item, index) => {
           const IconComponent = item.icon;
@@ -180,14 +212,14 @@ export default function Home() {
                     <View
                       className={`absolute -top-2 -left-2 bg-white rounded-full border-1 w-6 h-6 flex items-center justify-center shadow-xl ${item.borderClass}`}
                     >
-                      <Text className={`text-xs font-semibold ${item.badgeColor}`}>{item.badge}</Text>
+                      <Text className={`text-xs font-rubik-semibold ${item.badgeColor}`}>{item.badge}</Text>
                     </View>
                   )}
                 </View>
 
                 <View>
-                  <Text className={`font-semibold text-base ${item.textClass}`}>{item.title}</Text>
-                  <Text className="text-gray-500 text-md">{item.description}</Text>
+                  <Text className={`font-rubik-semibold text-base ${item.textClass}`}>{item.title}</Text>
+                  <Text className="text-gray-500 text-md font-rubik-regular">{item.description}</Text>
                 </View>
               </View>
 
