@@ -1,38 +1,47 @@
-# Learn more https://docs.github.com/en/get-started/getting-started-with-git/ignoring-files
-
-# dependencies
+# Node modules
 node_modules/
+npm-debug.log*
 
-# Expo
+# Expo & Metro cache
 .expo/
-dist/
-web-build/
-expo-env.d.ts
+.expo-shared/
+*.expo
 
-# Native
-*.orig.*
-*.jks
-*.p8
-*.p12
-*.key
-*.mobileprovision
-
-# Metro
-.metro-health-check*
-
-# debug
-npm-debug.*
-yarn-debug.*
-yarn-error.*
-
-# macOS
+# Mac system files
 .DS_Store
-*.pem
 
-# local env files
-.env*.local
+# VS Code settings
+.vscode/
 
-# typescript
+# OS system files
+Thumbs.db
+
+# Log files
+*.log
+
+# Environment variables
+.env
+.env.*
+
+# Output builds
+dist/
+build/
+web-build/
+android/
+ios/
+
+# Tailwind JIT cache (optional)
+.tailwind
+
+# TypeScript
 *.tsbuildinfo
 
-app-example
+# Expo assets cache
+assets/cache/
+
+# SQLite DBs (if using SQLite locally)
+*.db
+*.sqlite
+
+# Misc
+coverage/
