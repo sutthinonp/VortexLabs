@@ -1,3 +1,4 @@
+// stores/useTransferStore.ts
 import { create } from 'zustand';
 
 export type User = {
@@ -6,30 +7,28 @@ export type User = {
   avatar: string;
 };
 
-type TransferStore = {
+type TransferState = {
   latestUsers: User[];
-  setLatestUsers: (users: User[]) => void;
-
   allUsers: User[];
-  setAllUsers: (users: User[]) => void;
-
   selectedUserIds: string[];
-  setSelectedUserIds: (ids: string[]) => void;
-
   transferTypeId: string;
+};
+
+type TransferActions = {
+  setLatestUsers: (users: User[]) => void;
+  setAllUsers: (users: User[]) => void;
+  setSelectedUserIds: (ids: string[]) => void;
   setTransferTypeId: (id: string) => void;
 };
 
-export const useTransferStore = create<TransferStore>((set) => ({
+export const useTransferStore = create<TransferState & TransferActions>((set) => ({
   latestUsers: [],
-  setLatestUsers: (users) => set({ latestUsers: users }),
-
   allUsers: [],
-  setAllUsers: (users) => set({ allUsers: users }),
-
   selectedUserIds: [],
-  setSelectedUserIds: (ids) => set({ selectedUserIds: ids }),
-
   transferTypeId: '',
+
+  setLatestUsers: (users) => set({ latestUsers: users }),
+  setAllUsers: (users) => set({ allUsers: users }),
+  setSelectedUserIds: (ids) => set({ selectedUserIds: ids }),
   setTransferTypeId: (id) => set({ transferTypeId: id }),
 }));

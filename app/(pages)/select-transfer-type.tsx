@@ -1,7 +1,7 @@
 import { useTransferStore } from '@/stores/transferStore';
 import { useRouter } from 'expo-router';
 import React, { useState } from 'react';
-import { ScrollView, Text, TouchableOpacity, View } from 'react-native';
+import { RefreshControl, ScrollView, Text, TouchableOpacity, View } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import HeaderBlock from '../components/Header';
 
@@ -26,8 +26,18 @@ const mockTypes: TransferType[] = [
 
 export default function SelectTransferTypePage() {
   const router = useRouter();
-  const { transferTypeId, setTransferTypeId } = useTransferStore(); // ✅
+  const { transferTypeId, setTransferTypeId } = useTransferStore();
   const [selected, setSelected] = useState<string>(transferTypeId);
+
+  const [refreshing, setRefreshing] = useState(false);
+
+  const onRefresh = () => {
+    setRefreshing(true);
+    setTimeout(() => {
+      setSelected('');
+      setRefreshing(false);
+    }, 1000);
+  };
 
   return (
     <SafeAreaView className="flex-1 bg-white">
@@ -41,11 +51,18 @@ export default function SelectTransferTypePage() {
       />
       <Text className="text-sm text-gray-500 font-rubik-regular bg-gray-100 px-4 py-2">Choose Transfer Type</Text>
       <View className="px-4">
-        <ScrollView>
+        <ScrollView
+          contentContainerStyle={{ paddingBottom: 300 }}
+          refreshControl={
+            <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
+          }
+        >
           {mockTypes.map((type) => (
             <TouchableOpacity
               key={type.id}
-              onPress={() => setSelected(type.id)}
+              onPress={() => {
+                setSelected((prev) => (prev === type.id ? '' : type.id));
+              }}
               className="py-3 border-b border-gray-100"
             >
               <View className="flex-row items-center">

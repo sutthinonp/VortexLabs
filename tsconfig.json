@@ -3,10 +3,10 @@
   "compilerOptions": {
     "strict": true,
     "baseUrl": ".",
+    "moduleResolution": "node",
+    "allowJs": true,
     "paths": {
-      "@/*": [
-        "./*"
-      ]
+      "@/*": ["./*"]
     }
   },
   "include": [
@@ -15,7 +15,6 @@
     ".expo/types/**/*.ts",
     "expo-env.d.ts",
     "app/nativewind-env.d.ts",
-    "nativewind-env.d.ts",
     "nativewind-env.d.ts"
   ]
 }

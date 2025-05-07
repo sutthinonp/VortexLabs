@@ -1,6 +1,7 @@
 import ChevronRight from '@/assets/icons/chevron-right.svg';
 import CoinIcon from '@/assets/icons/coin.svg';
 import { useTransferStore } from '@/stores/transferStore';
+import { useTransferActions } from '@/stores/useTransferActions';
 import { useRouter } from 'expo-router';
 import React, { useEffect, useRef, useState } from 'react';
 import {
@@ -9,11 +10,12 @@ import {
   Keyboard,
   KeyboardAvoidingView,
   Platform,
+  RefreshControl,
   ScrollView,
   Text,
   TextInput,
   TouchableOpacity,
-  View,
+  View
 } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import HeaderBlock from '../components/Header';
@@ -21,14 +23,27 @@ import HeaderBlock from '../components/Header';
 const amountOptions = [5, 10, 15, 20, 30, 40];
 
 export default function Transfer() {
+  const { resetTransfer, toggleUser } = useTransferActions();
   const scrollRef = useRef<ScrollView>(null);
   const [amount, setAmount] = useState<number | null>(5);
   const router = useRouter();
+
+  const [refreshing, setRefreshing] = useState(false);
+
+  const onRefresh = () => {
+    setRefreshing(true);
+    setTimeout(() => {
+      setAmount(null);
+      resetTransfer(); // ✅ เรียก helper ที่แยก logic ออกมา
+      setRefreshing(false);
+    }, 1000);
+  };
 
   const {
     latestUsers,
     selectedUserIds,
     setSelectedUserIds,
+    setTransferTypeId,
     setLatestUsers,
     transferTypeId,
   } = useTransferStore();
@@ -53,14 +68,6 @@ export default function Transfer() {
     return () => showSub.remove();
   }, []);
 
-  const toggleUser = (id: string) => {
-    if (selectedUserIds.includes(id)) {
-      setSelectedUserIds(selectedUserIds.filter((uid) => uid !== id));
-    } else {
-      setSelectedUserIds([...selectedUserIds, id]);
-    }
-  };
-
   return (
     <SafeAreaView className="flex-1 bg-gray-50">
       <KeyboardAvoidingView
@@ -74,17 +81,20 @@ export default function Transfer() {
           className="p-0"
           contentContainerStyle={{ paddingBottom: 16 }}
           keyboardShouldPersistTaps="handled"
+          refreshControl={
+            <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
+          }
         >
           <View className="bg-white p-4">
             <Text className="text-base font-rubik-semibold mb-2">5 latest lists</Text>
-            <ScrollView horizontal showsHorizontalScrollIndicator={false} className="flex-row">
+            <ScrollView horizontal showsHorizontalScrollIndicator={false} className="flex-row" >
               {latestUsers.map((user) => {
                 const isSelected = selectedUserIds.includes(user.id);
                 return (
                   <TouchableOpacity
                     key={user.id}
                     className="items-center mr-4"
-                    onPress={() => toggleUser(user.id)}
+                    onPress={() => toggleUser(user.id, selectedUserIds)}
                   >
                     <View
                       className={`w-16 h-16 rounded-full border-2 ${isSelected ? 'border-blue-500' : 'border-transparent'
@@ -104,7 +114,6 @@ export default function Transfer() {
             </ScrollView>
           </View>
 
-          {/* Select user/type */}
           <View className="bg-white p-4 mt-4">
             <TouchableOpacity
               className="flex-row justify-between items-center py-4 border-b border-gray-200"
