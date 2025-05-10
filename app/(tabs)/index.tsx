@@ -86,7 +86,6 @@ export default function Home() {
 
   const onRefresh = useCallback(() => {
     setRefreshing(true);
-    // 🔁 TODO: ใส่ฟังก์ชัน fetch ข้อมูลใหม่ตรงนี้
     setTimeout(() => {
       setRefreshing(false);
     }, 1500);

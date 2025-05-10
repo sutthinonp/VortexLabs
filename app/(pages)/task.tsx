@@ -1,14 +1,14 @@
-import { View, Text } from 'react-native'
 import React from 'react'
-import HeaderBlock from '../components/Header'
+import { Text, View } from 'react-native'
 import { SafeAreaView } from 'react-native-safe-area-context'
+import HeaderBlock from '../components/Header'
 
 const task = () => {
   return (
     <SafeAreaView>
       <View>
         <HeaderBlock title="Task" />
-        <Text>task</Text>
+        <Text>google</Text>
       </View>
     </SafeAreaView>
   )

@@ -5,7 +5,8 @@ import React, { createContext, useContext, useEffect, useState } from 'react';
 
 interface AuthContextType {
   isAuthenticated: boolean | null;
-  login: (email: string, password: string) => Promise<void>;
+  isAuthChecked: boolean; // ✅ เพิ่ม
+  login: (username: string, password: string) => Promise<void>;
   logout: () => Promise<void>;
 }
 
@@ -13,6 +14,7 @@ const AuthContext = createContext<AuthContextType | null>(null);
 
 export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
   const [isAuthenticated, setIsAuthenticated] = useState<boolean | null>(null);
+  const [isAuthChecked, setIsAuthChecked] = useState(false); // ✅ เพิ่ม
   const router = useRouter();
 
   useEffect(() => {
@@ -22,15 +24,17 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
         setIsAuthenticated(!!token);
       } catch (error) {
         setIsAuthenticated(false);
+      } finally {
+        setIsAuthChecked(true); // ✅ รู้ว่าโหลดเสร็จแล้ว ไม่ว่า token มีหรือไม่
       }
     })();
   }, []);
 
-  const login = async (email: string, password: string) => {
-    const { token } = await signInService(email, password);
+  const login = async (username: string, password: string) => {
+    const { token } = await signInService(username, password);
     await SecureStore.setItemAsync('authToken', token);
     setIsAuthenticated(true);
-    router.replace('/(tabs)/index');
+    router.replace('/');
   };
 
   const logout = async () => {
@@ -41,7 +45,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
   };
 
   return (
-    <AuthContext.Provider value={{ isAuthenticated, login, logout }}>
+    <AuthContext.Provider value={{ isAuthenticated, isAuthChecked, login, logout }}>
       {children}
     </AuthContext.Provider>
   );

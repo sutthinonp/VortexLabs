@@ -4,41 +4,42 @@ import React, { ReactNode, useEffect, useState } from 'react';
 import { ActivityIndicator, View } from 'react-native';
 
 interface ProtectedProps {
-    children: ReactNode;
+  children: ReactNode;
 }
 
 const Protected: React.FC<ProtectedProps> = ({ children }) => {
-    const { isAuthenticated } = useAuth();
-    const router = useRouter();
-    const [isRouterReady, setIsRouterReady] = useState(false);
+  const { isAuthenticated, isAuthChecked } = useAuth();
+  const router = useRouter();
+  const [isRouterReady, setIsRouterReady] = useState(false);
 
-    useEffect(() => {
-        const timeout = setTimeout(() => {
-            setIsRouterReady(true);
-        }, 10);
+  useEffect(() => {
+    const timeout = setTimeout(() => {
+      setIsRouterReady(true);
+    }, 10);
 
-        return () => clearTimeout(timeout);
-    }, []);
+    return () => clearTimeout(timeout);
+  }, []);
 
-    useEffect(() => {
-        if (isRouterReady && isAuthenticated === false) {
-            router.replace('/welcome');
-        }
-    }, [isAuthenticated, isRouterReady]);
-
-    if (isAuthenticated === null || !isRouterReady) {
-        return (
-            <View className="flex-1 justify-center items-center">
-                <ActivityIndicator size="large" color="#0061FF" />
-            </View>
-        );
+  useEffect(() => {
+    // ✅ แก้ตรงนี้: ห้าม redirect จนกว่า auth จะเช็คเสร็จ
+    if (isRouterReady && isAuthChecked && isAuthenticated === false) {
+      router.replace('/welcome');
     }
+  }, [isAuthenticated, isAuthChecked, isRouterReady]);
 
-    if (!isAuthenticated) {
-        return null;
-    }
+  if (!isAuthChecked || !isRouterReady || isAuthenticated === null) {
+    return (
+      <View className="flex-1 justify-center items-center">
+        <ActivityIndicator size="large" color="#0061FF" />
+      </View>
+    );
+  }
 
-    return <>{children}</>;
+  if (!isAuthenticated) {
+    return null;
+  }
+
+  return <>{children}</>;
 };
 
 export default Protected;
