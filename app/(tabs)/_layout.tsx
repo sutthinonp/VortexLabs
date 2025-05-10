@@ -1,7 +1,7 @@
-import { View, Text, Image } from 'react-native'
-import React from 'react'
-import { Tabs } from 'expo-router'
 import Protected from '@/components/Protected'
+import { Tabs } from 'expo-router'
+import React from 'react'
+import { Image, Text, View } from 'react-native'
 
 import icons from '@/constants/icons'
 

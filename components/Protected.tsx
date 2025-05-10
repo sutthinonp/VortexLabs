@@ -1,7 +1,7 @@
-import React, { ReactNode, useEffect, useState } from 'react';
-import { useRouter } from 'expo-router';
 import { useAuth } from '@/contexts/AuthContext';
-import { View, ActivityIndicator } from 'react-native';
+import { useRouter } from 'expo-router';
+import React, { ReactNode, useEffect, useState } from 'react';
+import { ActivityIndicator, View } from 'react-native';
 
 interface ProtectedProps {
     children: ReactNode;
