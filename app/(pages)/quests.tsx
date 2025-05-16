@@ -212,12 +212,10 @@ const quests = () => {
                       Due Date : {q.dueDate} <Text>{q.dueStatus}</Text>
                     </Text>
                     <View className="flex-row space-x-4 gap-2">
-                      {/* แสดง CoinIcon */}
                       <View className="flex-row items-center bg-yellow-100 px-3 py-1 rounded-full gap-2">
                         <CoinIcon width={18} height={18} />
                         <Text className="text-yellow-700 font-rubik-semibold">{q.coins} Coins</Text>
                       </View>
-
                       <View className="flex-row items-center bg-blue-100 px-3 py-1 rounded-full">
                         <Text className="text-blue-700 font-rubik-semibold">{q.points} Points</Text>
                       </View>
@@ -240,7 +238,6 @@ const quests = () => {
             )}
           </View>
         </ScrollView>
-
       </View>
     </SafeAreaView>
   )
