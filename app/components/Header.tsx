@@ -8,9 +8,10 @@ type HeaderBlockProps = {
     title: string;
     showConfirm?: boolean;
     onConfirm?: () => void;
+    titleClassName?: string;
 };
 
-export default function HeaderBlock({ title, showConfirm, onConfirm }: HeaderBlockProps) {
+export default function HeaderBlock({ title, showConfirm, onConfirm, titleClassName }: HeaderBlockProps) {
     const insets = useSafeAreaInsets();
     const router = useRouter();
 
@@ -46,13 +47,12 @@ export default function HeaderBlock({ title, showConfirm, onConfirm }: HeaderBlo
                     <Image source={icons.backArrow} style={{ width: 20, height: 20 }} resizeMode="contain" />
                 </TouchableOpacity>
                 <Text
-                    className='text-xl font-rubik-bold text-black'
-                    style={{
-                        alignSelf: 'center',
-                    }}
+                    className={`text-xl font-rubik-bold text-black ${titleClassName ?? ''}`}
+                    style={{ alignSelf: 'center' }}
                 >
                     {title}
                 </Text>
+
 
                 {showConfirm && (
                     <TouchableOpacity
