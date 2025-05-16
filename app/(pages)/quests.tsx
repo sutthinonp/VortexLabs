@@ -1,4 +1,5 @@
-import React, { useState } from 'react'
+import CoinIcon from '@/assets/icons/coin.svg'
+import React, { useMemo, useState } from 'react'
 import { Image, ScrollView, StyleSheet, Text, View } from 'react-native'
 import { SafeAreaView } from 'react-native-safe-area-context'
 import HeaderBlock from '../components/Header'
@@ -8,20 +9,126 @@ const quests = () => {
   const [selectedTab, setSelectedTab] = useState('Holding')
 
   const questTabs = [
-    { key: 'Holding', label: 'Holding', count: 3 },
-    { key: 'Completed', label: 'Completed' },
-    { key: 'Period', label: 'Period' },
-    { key: 'Expired', label: 'Expired' },
+    { key: 'Holding', label: 'Holding', count: 1 },
+    { key: 'Completed', label: 'Completed', count: 1 },
+    { key: 'Period', label: 'Period', count: 1 },
+    { key: 'Expired', label: 'Expired', count: 0 },
   ]
 
-  const questList = Array.from({ length: 20 }, (_, i) => `Quest ${i + 1}`)
+  const questList = [
+    {
+      title: 'โครงสร้าง หลังบ้านตัวใหม่ Vortex Server',
+      dueDate: '28/10/2022, 17:00',
+      dueStatus: '(3 days)',
+      coins: 80,
+      points: 50,
+      dueStatusColor: 'text-yellow-500',
+      status: 'Holding',
+    },
+    {
+      title: 'Portfolio บ.',
+      dueDate: '23/10/2022, 17:00',
+      dueStatus: 'Late 7 days',
+      coins: 100,
+      points: 80,
+      dueStatusColor: 'text-red-500',
+      status: 'Completed',
+    },
+    {
+      title: 'ทดลองไปพักผ่อนต่างจังหวัด 7 วัน 6 คืน',
+      dueDate: '23/12/2022, 17:00',
+      dueStatus: '(32 days)',
+      coins: 200,
+      points: 100,
+      dueStatusColor: 'text-gray-400',
+      status: 'Period',
+    },
+    {
+      title: 'เขียนรายงานผลประกอบการไตรมาส 2',
+      dueDate: '10/06/2023, 12:00',
+      dueStatus: '(15 days)',
+      coins: 120,
+      points: 90,
+      dueStatusColor: 'text-yellow-500',
+      status: 'Holding',
+    },
+    {
+      title: 'ประชุมวางแผนกลยุทธ์ประจำปี',
+      dueDate: '15/07/2023, 09:00',
+      dueStatus: '(30 days)',
+      coins: 90,
+      points: 70,
+      dueStatusColor: 'text-yellow-500',
+      status: 'Holding',
+    },
+    {
+      title: 'ส่งแบบฟอร์มประเมินผลพนักงาน',
+      dueDate: '01/05/2023, 17:00',
+      dueStatus: 'Late 2 days',
+      coins: 60,
+      points: 40,
+      dueStatusColor: 'text-red-500',
+      status: 'Completed',
+    },
+    {
+      title: 'ปรับปรุง UI หน้าเว็บหลัก',
+      dueDate: '20/04/2023, 14:00',
+      dueStatus: 'Late 10 days',
+      coins: 150,
+      points: 120,
+      dueStatusColor: 'text-red-500',
+      status: 'Completed',
+    },
+    {
+      title: 'ตรวจสอบและอัปเดตฐานข้อมูลลูกค้า',
+      dueDate: '30/08/2023, 10:00',
+      dueStatus: '(60 days)',
+      coins: 180,
+      points: 140,
+      dueStatusColor: 'text-gray-400',
+      status: 'Period',
+    },
+    {
+      title: 'ฝึกอบรมเทคโนโลยีใหม่',
+      dueDate: '15/09/2023, 15:00',
+      dueStatus: '(75 days)',
+      coins: 130,
+      points: 100,
+      dueStatusColor: 'text-gray-400',
+      status: 'Period',
+    },
+    {
+      title: 'ส่งเอกสารขออนุมัติโครงการ',
+      dueDate: '01/01/2023, 09:00',
+      dueStatus: 'Expired',
+      coins: 50,
+      points: 30,
+      dueStatusColor: 'text-gray-400',
+      status: 'Expired',
+    },
+    {
+      title: 'จัดทำรายงานงบประมาณ',
+      dueDate: '15/02/2023, 18:00',
+      dueStatus: 'Expired',
+      coins: 70,
+      points: 60,
+      dueStatusColor: 'text-gray-400',
+      status: 'Expired',
+    },
+  ]
+
+  const filteredList = useMemo(() => {
+    if (selectedTab === 'Expired') return []
+    return questList.filter(q => q.status === selectedTab)
+  }, [selectedTab])
 
   return (
     <SafeAreaView className="flex-1 bg-gray-50">
-      {/* Header */}
-      <HeaderBlock title="My Quest" titleClassName="text-black font-rubik-semibold" />
+      <HeaderBlock
+        title="My Quest"
+        titleClassName="text-black font-rubik-semibold"
+      />
 
-      {/* Background Image */}
       <View style={[StyleSheet.absoluteFillObject, { height: 256, zIndex: -1 }]}>
         <View className="h-52 rounded-b-3xl overflow-hidden">
           <Image
@@ -32,8 +139,7 @@ const quests = () => {
         </View>
       </View>
 
-      {/* Floating Card */}
-      <View className="absolute inset-x-0 top-40 z-10 px-5">
+      <View className="absolute inset-x-0 top-32 z-10 px-4">
         <View className="bg-[#fcf9e3] p-5 rounded-2xl w-full">
           <View className="flex-row justify-between items-center border-b border-dashed border-gray-300 pb-3">
             <Text className="text-yellow-600 font-rubik-bold text-lg">
@@ -84,23 +190,57 @@ const quests = () => {
         </View>
       </View>
 
-      {/* Content: Tabs + Scrollable QuestList */}
-      <View className="flex-1">
+      <View className="flex-1 mt-[170px]">
         <QuestTabs
           tabs={questTabs}
           selected={selectedTab}
           onSelect={setSelectedTab}
         />
 
-        <ScrollView contentContainerStyle={{ paddingHorizontal: 20, paddingBottom: 100 }}>
-          <View className="space-y-3 mt-4">
-            {questList.map((q, idx) => (
-              <View key={idx} className="bg-white p-4 rounded-xl shadow-sm">
-                <Text className="font-rubik-regular text-gray-800">{q}</Text>
-              </View>
-            ))}
+        <ScrollView contentContainerStyle={{ paddingBottom: 100 }} className="px-4">
+          <View className="bg-white rounded-2xl p-4">
+            {filteredList.length === 0 ? (
+              <Text className="text-center py-10 text-gray-400">No quests found.</Text>
+            ) : (
+              filteredList.map((q, idx) => (
+                <View key={idx}>
+                  <View>
+                    <Text className="font-rubik-semibold text-gray-900 mb-2">
+                      {q.title}
+                    </Text>
+                    <Text className={`font-rubik-regular ${q.dueStatusColor} mb-3`}>
+                      Due Date : {q.dueDate} <Text>{q.dueStatus}</Text>
+                    </Text>
+                    <View className="flex-row space-x-4 gap-2">
+                      {/* แสดง CoinIcon */}
+                      <View className="flex-row items-center bg-yellow-100 px-3 py-1 rounded-full gap-2">
+                        <CoinIcon width={18} height={18} />
+                        <Text className="text-yellow-700 font-rubik-semibold">{q.coins} Coins</Text>
+                      </View>
+
+                      <View className="flex-row items-center bg-blue-100 px-3 py-1 rounded-full">
+                        <Text className="text-blue-700 font-rubik-semibold">{q.points} Points</Text>
+                      </View>
+                    </View>
+                  </View>
+                  {idx !== filteredList.length - 1 && (
+                    <View style={{ height: 2, overflow: 'hidden' }} className="my-4">
+                      <View
+                        style={{
+                          height: 2,
+                          borderWidth: 2,
+                          borderColor: '#ddd',
+                          borderStyle: 'dashed',
+                        }}
+                      />
+                    </View>
+                  )}
+                </View>
+              ))
+            )}
           </View>
         </ScrollView>
+
       </View>
     </SafeAreaView>
   )

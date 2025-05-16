@@ -15,26 +15,29 @@ type QuestTabsProps = {
 
 export default function QuestTabs({ tabs, selected, onSelect }: QuestTabsProps) {
   return (
-    <View className="h-16">
+    <View className="h-20 mb-2">
       <ScrollView
         horizontal
         showsHorizontalScrollIndicator={false}
-        contentContainerStyle={{ alignItems: 'center', paddingHorizontal: 20 }}
+        contentContainerStyle={{
+          alignItems: 'center',
+          paddingHorizontal: 20,
+        }}
       >
-        <View className="flex-row space-x-4 mt-4">
-          {tabs.map((tab) => {
+        <View className="flex-row mt-4">
+          {tabs.map((tab, index) => {
             const isActive = selected === tab.key
             return (
               <Pressable
                 key={tab.key}
                 onPress={() => onSelect(tab.key)}
-                className={`px-4 py-2 rounded-full border ${
+                className={`min-w-[100px] px-6 py-2 rounded-full border ${
                   isActive
                     ? 'bg-blue-100 border-blue-500'
                     : 'bg-white border-gray-200'
-                }`}
+                } ${index !== tabs.length - 1 ? 'mr-1' : ''}`}
               >
-                <View className="flex-row items-center">
+                <View className="flex-row items-center justify-center">
                   <Text
                     className={`text-base font-rubik-semibold ${
                       isActive ? 'text-blue-600' : 'text-gray-500'

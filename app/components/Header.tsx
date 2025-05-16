@@ -9,9 +9,16 @@ type HeaderBlockProps = {
     showConfirm?: boolean;
     onConfirm?: () => void;
     titleClassName?: string;
+    showBackBackground?: boolean;
 };
 
-export default function HeaderBlock({ title, showConfirm, onConfirm, titleClassName }: HeaderBlockProps) {
+export default function HeaderBlock({
+    title,
+    showConfirm,
+    onConfirm,
+    titleClassName,
+    showBackBackground = true,
+}: HeaderBlockProps) {
     const insets = useSafeAreaInsets();
     const router = useRouter();
 
@@ -37,22 +44,28 @@ export default function HeaderBlock({ title, showConfirm, onConfirm, titleClassN
                     onPress={handleBack}
                     style={{
                         position: 'absolute',
-                        left: 0,
+                        left: insets.left + 12,
                         width: 40,
                         height: 40,
                         justifyContent: 'center',
                         alignItems: 'center',
+                        borderRadius: 20,
+                        backgroundColor: showBackBackground ? 'white' : 'transparent',
                     }}
                 >
-                    <Image source={icons.backArrow} style={{ width: 20, height: 20 }} resizeMode="contain" />
+                    <Image
+                        source={icons.backArrow}
+                        style={{ width: 20, height: 20 }}
+                        resizeMode="contain"
+                    />
                 </TouchableOpacity>
+
                 <Text
                     className={`text-xl font-rubik-bold text-black ${titleClassName ?? ''}`}
                     style={{ alignSelf: 'center' }}
                 >
                     {title}
                 </Text>
-
 
                 {showConfirm && (
                     <TouchableOpacity
@@ -65,7 +78,7 @@ export default function HeaderBlock({ title, showConfirm, onConfirm, titleClassN
                             alignItems: 'flex-end',
                         }}
                     >
-                        <Text className='text-blue-500 font-rubik-semibold'>Confirm</Text>
+                        <Text className="text-blue-500 font-rubik-semibold">Confirm</Text>
                     </TouchableOpacity>
                 )}
             </View>

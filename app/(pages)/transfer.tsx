@@ -74,7 +74,7 @@ export default function Transfer() {
         behavior={Platform.OS === 'ios' ? 'padding' : undefined}
         style={{ flex: 1 }}
       >
-        <HeaderBlock title="Coin Transfer" />
+        <HeaderBlock title="Coin Transfer" showBackBackground={false}/>
 
         <ScrollView
           ref={scrollRef}
